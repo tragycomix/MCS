@@ -16,9 +16,9 @@
         <AssociationConnector Association="MaChStorageModel.FK_OrderParts_Items" ManuallyRouted="false" />
         <AssociationConnector Association="MaChStorageModel.FK_StorageMain_Items" ManuallyRouted="false" />
         <AssociationConnector Association="MaChStorageModel.FK_OrderParts_Orders" ManuallyRouted="false" />
-        <EntityTypeShape EntityType="MaChStorageModel.OrderPartsVW" Width="1.5" PointX="11.875" PointY="0.625" />
-        <EntityTypeShape EntityType="MaChStorageModel.OrdersVW" Width="1.5" PointX="8.375" PointY="0.625" />
-        <EntityTypeShape EntityType="MaChStorageModel.StorageVW" Width="1.5" PointX="10.125" PointY="0.625" />
+        <EntityTypeShape EntityType="MaChStorageModel.OrderPartsVW" Width="1.5" PointX="11" PointY="0.5" />
+        <EntityTypeShape EntityType="MaChStorageModel.OrdersVW" Width="1.5" PointX="9.25" PointY="0.5" />
+        <EntityTypeShape EntityType="MaChStorageModel.StorageVW" Width="1.5" PointX="7.5" PointY="0.5" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

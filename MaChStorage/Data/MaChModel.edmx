@@ -85,9 +85,6 @@ warning 6002: The table/view 'MaChStorage.dbo.OrderPartsVW' does not have a prim
         <EntityType Name="OrderPartsVW">
           <Key>
             <PropertyRef Name="Id" />
-            <PropertyRef Name="OrderId" />
-            <PropertyRef Name="ItemId" />
-            <PropertyRef Name="OrderedQuantity" />
           </Key>
           <Property Name="Id" Type="int" Nullable="false" />
           <Property Name="OrderId" Type="int" Nullable="false" />
@@ -103,7 +100,6 @@ warning 6002: The table/view 'MaChStorage.dbo.OrdersVW' does not have a primary 
         <EntityType Name="OrdersVW">
           <Key>
             <PropertyRef Name="Id" />
-            <PropertyRef Name="CustomerId" />
           </Key>
           <Property Name="Id" Type="int" Nullable="false" />
           <Property Name="Descrition" Type="nvarchar(max)" />
@@ -125,8 +121,6 @@ warning 6002: The table/view 'MaChStorage.dbo.StorageVW' does not have a primary
         <EntityType Name="StorageVW">
           <Key>
             <PropertyRef Name="StorageId" />
-            <PropertyRef Name="ItemId" />
-            <PropertyRef Name="Quantity" />
           </Key>
           <Property Name="StorageId" Type="int" Nullable="false" />
           <Property Name="ItemId" Type="int" Nullable="false" />
@@ -461,9 +455,6 @@ warning 6002: The table/view 'MaChStorage.dbo.StorageVW' does not have a primary
         <EntityType Name="OrderPartsVW">
           <Key>
             <PropertyRef Name="Id" />
-            <PropertyRef Name="OrderId" />
-            <PropertyRef Name="ItemId" />
-            <PropertyRef Name="OrderedQuantity" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" />
           <Property Name="OrderId" Type="Int32" Nullable="false" />
@@ -477,7 +468,6 @@ warning 6002: The table/view 'MaChStorage.dbo.StorageVW' does not have a primary
         <EntityType Name="OrdersVW">
           <Key>
             <PropertyRef Name="Id" />
-            <PropertyRef Name="CustomerId" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" />
           <Property Name="Descrition" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
@@ -497,8 +487,6 @@ warning 6002: The table/view 'MaChStorage.dbo.StorageVW' does not have a primary
         <EntityType Name="StorageVW">
           <Key>
             <PropertyRef Name="StorageId" />
-            <PropertyRef Name="ItemId" />
-            <PropertyRef Name="Quantity" />
           </Key>
           <Property Name="StorageId" Type="Int32" Nullable="false" />
           <Property Name="ItemId" Type="Int32" Nullable="false" />
@@ -510,7 +498,7 @@ warning 6002: The table/view 'MaChStorage.dbo.StorageVW' does not have a primary
           <Property Name="SupplierName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Reservation" Type="Int32" />
         </EntityType>
-      </Schema>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
@@ -543,25 +531,25 @@ warning 6002: The table/view 'MaChStorage.dbo.StorageVW' does not have a primary
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Orders">
-            <EntityTypeMapping TypeName="MaChStorageModel.Order">
+            <EntityTypeMapping TypeName="IsTypeOf(MaChStorageModel.Order)">
               <MappingFragment StoreEntitySet="Orders">
                 <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
-                <ScalarProperty Name="Descrition" ColumnName="Descrition" />
-                <ScalarProperty Name="Note" ColumnName="Note" />
-                <ScalarProperty Name="OrderDate" ColumnName="OrderDate" />
-                <ScalarProperty Name="ShippedDate" ColumnName="ShippedDate" />
                 <ScalarProperty Name="Canceled" ColumnName="Canceled" />
+                <ScalarProperty Name="ShippedDate" ColumnName="ShippedDate" />
+                <ScalarProperty Name="OrderDate" ColumnName="OrderDate" />
+                <ScalarProperty Name="Note" ColumnName="Note" />
+                <ScalarProperty Name="Descrition" ColumnName="Descrition" />
+                <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="StorageMains">
-            <EntityTypeMapping TypeName="MaChStorageModel.StorageMain">
+            <EntityTypeMapping TypeName="IsTypeOf(MaChStorageModel.StorageMain)">
               <MappingFragment StoreEntitySet="StorageMain">
                 <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="ItemId" ColumnName="ItemId" />
-                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
                 <ScalarProperty Name="Placement" ColumnName="Placement" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="ItemId" ColumnName="ItemId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -582,12 +570,12 @@ warning 6002: The table/view 'MaChStorage.dbo.StorageVW' does not have a primary
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="OrderParts">
-            <EntityTypeMapping TypeName="MaChStorageModel.OrderPart">
+            <EntityTypeMapping TypeName="IsTypeOf(MaChStorageModel.OrderPart)">
               <MappingFragment StoreEntitySet="OrderParts">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="OrderId" ColumnName="OrderId" />
-                <ScalarProperty Name="ItemId" ColumnName="ItemId" />
                 <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="ItemId" ColumnName="ItemId" />
+                <ScalarProperty Name="OrderId" ColumnName="OrderId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Note" ColumnName="Note" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -641,7 +629,7 @@ warning 6002: The table/view 'MaChStorage.dbo.StorageVW' does not have a primary
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-        </EntityContainerMapping>
+          </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
   </edmx:Runtime>
