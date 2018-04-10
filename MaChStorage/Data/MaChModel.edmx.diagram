@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="9d5185624ddd4791ac1193a2b137cb06" Name="Diagram1">
+        <EntityTypeShape EntityType="MaChStorageModel.Customer" Width="1.5" PointX="0.75" PointY="7.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="MaChStorageModel.Item" Width="1.5" PointX="3" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MaChStorageModel.Order" Width="1.5" PointX="3" PointY="7.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="MaChStorageModel.StorageMain" Width="1.5" PointX="5.25" PointY="4" IsExpanded="true" />
+        <EntityTypeShape EntityType="MaChStorageModel.Supplier" Width="1.5" PointX="0.75" PointY="3.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="MaChStorageModel.OrderPart" Width="1.5" PointX="5.25" PointY="0.75" IsExpanded="true" />
+        <AssociationConnector Association="MaChStorageModel.FK_Orders_Customers" ManuallyRouted="false" />
+        <AssociationConnector Association="MaChStorageModel.FK_Items_Suppliers" ManuallyRouted="false" />
+        <AssociationConnector Association="MaChStorageModel.FK_OrderParts_Items" ManuallyRouted="false" />
+        <AssociationConnector Association="MaChStorageModel.FK_StorageMain_Items" ManuallyRouted="false" />
+        <AssociationConnector Association="MaChStorageModel.FK_OrderParts_Orders" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
