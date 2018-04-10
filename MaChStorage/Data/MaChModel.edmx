@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="MaChStorageModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="MaChStorageModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Customers">
           <Key>
             <PropertyRef Name="Id" />
@@ -80,6 +80,64 @@ warning 6002: The table/view 'MaChStorage.dbo.OrderParts' does not have a primar
           <Property Name="WebPage" Type="nvarchar" MaxLength="50" />
           <Property Name="Phone" Type="nvarchar" MaxLength="50" />
         </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'MaChStorage.dbo.OrderPartsVW' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="OrderPartsVW">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="OrderId" />
+            <PropertyRef Name="ItemId" />
+            <PropertyRef Name="OrderedQuantity" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="OrderId" Type="int" Nullable="false" />
+          <Property Name="ItemId" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="OrderedQuantity" Type="float" Nullable="false" />
+          <Property Name="StoredQuantity" Type="float" />
+          <Property Name="Note" Type="nvarchar" MaxLength="50" />
+          <Property Name="Placement" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'MaChStorage.dbo.OrdersVW' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="OrdersVW">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="CustomerId" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Descrition" Type="nvarchar(max)" />
+          <Property Name="Note" Type="nvarchar(max)" />
+          <Property Name="OrderDate" Type="datetime2" Precision="7" />
+          <Property Name="ShippedDate" Type="datetime2" Precision="7" />
+          <Property Name="Canceled" Type="nvarchar" MaxLength="50" />
+          <Property Name="CustomerId" Type="int" Nullable="false" />
+          <Property Name="CustomerName" Type="nvarchar" MaxLength="50" />
+          <Property Name="Country" Type="nvarchar" MaxLength="50" />
+          <Property Name="Town" Type="nvarchar" MaxLength="50" />
+          <Property Name="Street" Type="nvarchar" MaxLength="50" />
+          <Property Name="Email" Type="nvarchar" MaxLength="50" />
+          <Property Name="WebPage" Type="nvarchar" MaxLength="50" />
+          <Property Name="Phone" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'MaChStorage.dbo.StorageVW' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="StorageVW">
+          <Key>
+            <PropertyRef Name="StorageId" />
+            <PropertyRef Name="ItemId" />
+            <PropertyRef Name="Quantity" />
+          </Key>
+          <Property Name="StorageId" Type="int" Nullable="false" />
+          <Property Name="ItemId" Type="int" Nullable="false" />
+          <Property Name="Quantity" Type="float" Nullable="false" />
+          <Property Name="Placement" Type="nvarchar" MaxLength="50" />
+          <Property Name="ItemName" Type="nvarchar" MaxLength="50" />
+          <Property Name="Description" Type="nvarchar(max)" />
+          <Property Name="SupplierId" Type="int" />
+          <Property Name="SupplierName" Type="nvarchar" MaxLength="50" />
+          <Property Name="Reservation" Type="int" />
+        </EntityType>
         <Association Name="FK_Items_Suppliers">
           <End Role="Suppliers" Type="Self.Suppliers" Multiplicity="1" />
           <End Role="Items" Type="Self.Items" Multiplicity="*" />
@@ -140,6 +198,9 @@ warning 6002: The table/view 'MaChStorage.dbo.OrderParts' does not have a primar
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="GetReservationQuantity" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int">
+          <Parameter Name="ItemId" Type="int" Mode="In" />
+        </Function>
         <EntityContainer Name="MaChStorageModelStoreContainer">
           <EntitySet Name="Customers" EntityType="Self.Customers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Items" EntityType="Self.Items" Schema="dbo" store:Type="Tables" />
@@ -154,6 +215,49 @@ warning 6002: The table/view 'MaChStorage.dbo.OrderParts' does not have a primar
     [OrderParts].[Quantity] AS [Quantity], 
     [OrderParts].[Note] AS [Note]
     FROM [dbo].[OrderParts] AS [OrderParts]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="OrderPartsVW" EntityType="Self.OrderPartsVW" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [OrderPartsVW].[Id] AS [Id], 
+    [OrderPartsVW].[OrderId] AS [OrderId], 
+    [OrderPartsVW].[ItemId] AS [ItemId], 
+    [OrderPartsVW].[Name] AS [Name], 
+    [OrderPartsVW].[OrderedQuantity] AS [OrderedQuantity], 
+    [OrderPartsVW].[StoredQuantity] AS [StoredQuantity], 
+    [OrderPartsVW].[Note] AS [Note], 
+    [OrderPartsVW].[Placement] AS [Placement]
+    FROM [dbo].[OrderPartsVW] AS [OrderPartsVW]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="OrdersVW" EntityType="Self.OrdersVW" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [OrdersVW].[Id] AS [Id], 
+    [OrdersVW].[Descrition] AS [Descrition], 
+    [OrdersVW].[Note] AS [Note], 
+    [OrdersVW].[OrderDate] AS [OrderDate], 
+    [OrdersVW].[ShippedDate] AS [ShippedDate], 
+    [OrdersVW].[Canceled] AS [Canceled], 
+    [OrdersVW].[CustomerId] AS [CustomerId], 
+    [OrdersVW].[CustomerName] AS [CustomerName], 
+    [OrdersVW].[Country] AS [Country], 
+    [OrdersVW].[Town] AS [Town], 
+    [OrdersVW].[Street] AS [Street], 
+    [OrdersVW].[Email] AS [Email], 
+    [OrdersVW].[WebPage] AS [WebPage], 
+    [OrdersVW].[Phone] AS [Phone]
+    FROM [dbo].[OrdersVW] AS [OrdersVW]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="StorageVW" EntityType="Self.StorageVW" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [StorageVW].[StorageId] AS [StorageId], 
+    [StorageVW].[ItemId] AS [ItemId], 
+    [StorageVW].[Quantity] AS [Quantity], 
+    [StorageVW].[Placement] AS [Placement], 
+    [StorageVW].[ItemName] AS [ItemName], 
+    [StorageVW].[Description] AS [Description], 
+    [StorageVW].[SupplierId] AS [SupplierId], 
+    [StorageVW].[SupplierName] AS [SupplierName], 
+    [StorageVW].[Reservation] AS [Reservation]
+    FROM [dbo].[StorageVW] AS [StorageVW]</DefiningQuery>
           </EntitySet>
           <AssociationSet Name="FK_Items_Suppliers" Association="Self.FK_Items_Suppliers">
             <End Role="Suppliers" EntitySet="Suppliers" />
@@ -176,8 +280,7 @@ warning 6002: The table/view 'MaChStorage.dbo.OrderParts' does not have a primar
             <End Role="StorageMain" EntitySet="StorageMain" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="MaChStorageModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -351,7 +454,62 @@ warning 6002: The table/view 'MaChStorage.dbo.OrderParts' does not have a primar
             <End Role="Orders" EntitySet="Orders" />
             <End Role="OrderParts" EntitySet="OrderParts" />
           </AssociationSet>
+          <EntitySet Name="OrderPartsVWs" EntityType="MaChStorageModel.OrderPartsVW" />
+          <EntitySet Name="OrdersVWs" EntityType="MaChStorageModel.OrdersVW" />
+          <EntitySet Name="StorageVWs" EntityType="MaChStorageModel.StorageVW" />
         </EntityContainer>
+        <EntityType Name="OrderPartsVW">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="OrderId" />
+            <PropertyRef Name="ItemId" />
+            <PropertyRef Name="OrderedQuantity" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="OrderId" Type="Int32" Nullable="false" />
+          <Property Name="ItemId" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="OrderedQuantity" Type="Double" Nullable="false" />
+          <Property Name="StoredQuantity" Type="Double" />
+          <Property Name="Note" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Placement" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="OrdersVW">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="CustomerId" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Descrition" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Note" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="OrderDate" Type="DateTime" Precision="7" />
+          <Property Name="ShippedDate" Type="DateTime" Precision="7" />
+          <Property Name="Canceled" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CustomerId" Type="Int32" Nullable="false" />
+          <Property Name="CustomerName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Country" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Town" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Street" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="WebPage" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Phone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="StorageVW">
+          <Key>
+            <PropertyRef Name="StorageId" />
+            <PropertyRef Name="ItemId" />
+            <PropertyRef Name="Quantity" />
+          </Key>
+          <Property Name="StorageId" Type="Int32" Nullable="false" />
+          <Property Name="ItemId" Type="Int32" Nullable="false" />
+          <Property Name="Quantity" Type="Double" Nullable="false" />
+          <Property Name="Placement" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ItemName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="SupplierId" Type="Int32" />
+          <Property Name="SupplierName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Reservation" Type="Int32" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -431,6 +589,55 @@ warning 6002: The table/view 'MaChStorage.dbo.OrderParts' does not have a primar
                 <ScalarProperty Name="ItemId" ColumnName="ItemId" />
                 <ScalarProperty Name="Quantity" ColumnName="Quantity" />
                 <ScalarProperty Name="Note" ColumnName="Note" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OrderPartsVWs">
+            <EntityTypeMapping TypeName="MaChStorageModel.OrderPartsVW">
+              <MappingFragment StoreEntitySet="OrderPartsVW">
+                <ScalarProperty Name="Placement" ColumnName="Placement" />
+                <ScalarProperty Name="Note" ColumnName="Note" />
+                <ScalarProperty Name="StoredQuantity" ColumnName="StoredQuantity" />
+                <ScalarProperty Name="OrderedQuantity" ColumnName="OrderedQuantity" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ItemId" ColumnName="ItemId" />
+                <ScalarProperty Name="OrderId" ColumnName="OrderId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OrdersVWs">
+            <EntityTypeMapping TypeName="MaChStorageModel.OrdersVW">
+              <MappingFragment StoreEntitySet="OrdersVW">
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="WebPage" ColumnName="WebPage" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Street" ColumnName="Street" />
+                <ScalarProperty Name="Town" ColumnName="Town" />
+                <ScalarProperty Name="Country" ColumnName="Country" />
+                <ScalarProperty Name="CustomerName" ColumnName="CustomerName" />
+                <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
+                <ScalarProperty Name="Canceled" ColumnName="Canceled" />
+                <ScalarProperty Name="ShippedDate" ColumnName="ShippedDate" />
+                <ScalarProperty Name="OrderDate" ColumnName="OrderDate" />
+                <ScalarProperty Name="Note" ColumnName="Note" />
+                <ScalarProperty Name="Descrition" ColumnName="Descrition" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="StorageVWs">
+            <EntityTypeMapping TypeName="MaChStorageModel.StorageVW">
+              <MappingFragment StoreEntitySet="StorageVW">
+                <ScalarProperty Name="Reservation" ColumnName="Reservation" />
+                <ScalarProperty Name="SupplierName" ColumnName="SupplierName" />
+                <ScalarProperty Name="SupplierId" ColumnName="SupplierId" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="ItemName" ColumnName="ItemName" />
+                <ScalarProperty Name="Placement" ColumnName="Placement" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="ItemId" ColumnName="ItemId" />
+                <ScalarProperty Name="StorageId" ColumnName="StorageId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

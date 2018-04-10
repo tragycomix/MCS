@@ -31,5 +31,8 @@ namespace MaChStorage.Data
         public virtual DbSet<StorageMain> StorageMains { get; set; }
         public virtual DbSet<Supplier> Suppliers { get; set; }
         public virtual DbSet<OrderPart> OrderParts { get; set; }
+        public virtual DbSet<OrderPartsVW> OrderPartsVWs { get; set; }
+        public virtual DbSet<OrdersVW> OrdersVWs { get; set; }
+        public virtual DbSet<StorageVW> StorageVWs { get; set; }
     }
 }

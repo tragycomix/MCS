@@ -81,7 +81,16 @@
     <Compile Include="Data\OrderPart.cs">
       <DependentUpon>MaChModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Data\OrderPartsVW.cs">
+      <DependentUpon>MaChModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\OrdersVW.cs">
+      <DependentUpon>MaChModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Data\StorageMain.cs">
+      <DependentUpon>MaChModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\StorageVW.cs">
       <DependentUpon>MaChModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Data\Supplier.cs">
