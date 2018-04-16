@@ -81,10 +81,31 @@ warning 6002: The table/view 'MaChStorage.dbo.OrderParts' does not have a primar
           <Property Name="Phone" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <!--Errors Found During Generation:
+warning 6002: The table/view 'MaChStorage.dbo.ItemsVW' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="ItemsVW">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="ItemName" />
+            <PropertyRef Name="SupplierId" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="ItemName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="ItemDesc" Type="nvarchar(max)" />
+          <Property Name="Quantity" Type="float" />
+          <Property Name="Placement" Type="nvarchar" MaxLength="50" />
+          <Property Name="SupplierId" Type="int" Nullable="false" />
+          <Property Name="SupplierName" Type="nvarchar" MaxLength="50" />
+          <Property Name="SupplierDesc" Type="nvarchar(max)" />
+          <Property Name="Country" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <!--Errors Found During Generation:
 warning 6002: The table/view 'MaChStorage.dbo.OrderPartsVW' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="OrderPartsVW">
           <Key>
             <PropertyRef Name="Id" />
+            
+            
+            
           </Key>
           <Property Name="Id" Type="int" Nullable="false" />
           <Property Name="OrderId" Type="int" Nullable="false" />
@@ -100,6 +121,7 @@ warning 6002: The table/view 'MaChStorage.dbo.OrdersVW' does not have a primary 
         <EntityType Name="OrdersVW">
           <Key>
             <PropertyRef Name="Id" />
+            
           </Key>
           <Property Name="Id" Type="int" Nullable="false" />
           <Property Name="Descrition" Type="nvarchar(max)" />
@@ -121,6 +143,8 @@ warning 6002: The table/view 'MaChStorage.dbo.StorageVW' does not have a primary
         <EntityType Name="StorageVW">
           <Key>
             <PropertyRef Name="StorageId" />
+            
+            
           </Key>
           <Property Name="StorageId" Type="int" Nullable="false" />
           <Property Name="ItemId" Type="int" Nullable="false" />
@@ -209,6 +233,19 @@ warning 6002: The table/view 'MaChStorage.dbo.StorageVW' does not have a primary
     [OrderParts].[Quantity] AS [Quantity], 
     [OrderParts].[Note] AS [Note]
     FROM [dbo].[OrderParts] AS [OrderParts]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="ItemsVW" EntityType="Self.ItemsVW" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [ItemsVW].[Id] AS [Id], 
+    [ItemsVW].[ItemName] AS [ItemName], 
+    [ItemsVW].[ItemDesc] AS [ItemDesc], 
+    [ItemsVW].[Quantity] AS [Quantity], 
+    [ItemsVW].[Placement] AS [Placement], 
+    [ItemsVW].[SupplierId] AS [SupplierId], 
+    [ItemsVW].[SupplierName] AS [SupplierName], 
+    [ItemsVW].[SupplierDesc] AS [SupplierDesc], 
+    [ItemsVW].[Country] AS [Country]
+    FROM [dbo].[ItemsVW] AS [ItemsVW]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="OrderPartsVW" EntityType="Self.OrderPartsVW" store:Type="Views" store:Schema="dbo">
             <DefiningQuery>SELECT 
@@ -451,6 +488,7 @@ warning 6002: The table/view 'MaChStorage.dbo.StorageVW' does not have a primary
           <EntitySet Name="OrderPartsVWs" EntityType="MaChStorageModel.OrderPartsVW" />
           <EntitySet Name="OrdersVWs" EntityType="MaChStorageModel.OrdersVW" />
           <EntitySet Name="StorageVWs" EntityType="MaChStorageModel.StorageVW" />
+          <EntitySet Name="ItemsVWs" EntityType="MaChStorageModel.ItemsVW" />
         </EntityContainer>
         <EntityType Name="OrderPartsVW">
           <Key>
@@ -497,6 +535,22 @@ warning 6002: The table/view 'MaChStorage.dbo.StorageVW' does not have a primary
           <Property Name="SupplierId" Type="Int32" />
           <Property Name="SupplierName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Reservation" Type="Int32" />
+        </EntityType>
+        <EntityType Name="ItemsVW">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="ItemName" />
+            <PropertyRef Name="SupplierId" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="ItemName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ItemDesc" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Quantity" Type="Double" />
+          <Property Name="Placement" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SupplierId" Type="Int32" Nullable="false" />
+          <Property Name="SupplierName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SupplierDesc" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Country" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         </Schema>
     </edmx:ConceptualModels>
@@ -626,6 +680,21 @@ warning 6002: The table/view 'MaChStorage.dbo.StorageVW' does not have a primary
                 <ScalarProperty Name="Quantity" ColumnName="Quantity" />
                 <ScalarProperty Name="ItemId" ColumnName="ItemId" />
                 <ScalarProperty Name="StorageId" ColumnName="StorageId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ItemsVWs">
+            <EntityTypeMapping TypeName="MaChStorageModel.ItemsVW">
+              <MappingFragment StoreEntitySet="ItemsVW">
+                <ScalarProperty Name="Country" ColumnName="Country" />
+                <ScalarProperty Name="SupplierDesc" ColumnName="SupplierDesc" />
+                <ScalarProperty Name="SupplierName" ColumnName="SupplierName" />
+                <ScalarProperty Name="SupplierId" ColumnName="SupplierId" />
+                <ScalarProperty Name="Placement" ColumnName="Placement" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="ItemDesc" ColumnName="ItemDesc" />
+                <ScalarProperty Name="ItemName" ColumnName="ItemName" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

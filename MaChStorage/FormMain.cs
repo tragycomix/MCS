@@ -11,11 +11,11 @@ using System.Windows.Forms;
 
 namespace MaChStorage
 {
-    public partial class Form1 : Form
+    public partial class FormMain : Form
     {
         MaChStorageEntities Database;
 
-        public Form1()
+        public FormMain()
         {
             InitializeComponent();
             Load += Form1_Load;

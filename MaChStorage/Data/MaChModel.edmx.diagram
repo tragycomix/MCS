@@ -19,6 +19,7 @@
         <EntityTypeShape EntityType="MaChStorageModel.OrderPartsVW" Width="1.5" PointX="11" PointY="0.5" />
         <EntityTypeShape EntityType="MaChStorageModel.OrdersVW" Width="1.5" PointX="9.25" PointY="0.5" />
         <EntityTypeShape EntityType="MaChStorageModel.StorageVW" Width="1.5" PointX="7.5" PointY="0.5" />
+        <EntityTypeShape EntityType="MaChStorageModel.ItemsVW" Width="1.5" PointX="11" PointY="3.375" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
