@@ -13,7 +13,7 @@ namespace MaChStorage
     public partial class FormItems : Form
     {
         bool _Changes = false;
-
+        Data.MaChStorageEntities _Database;
 
         public FormItems()
         {
@@ -22,7 +22,13 @@ namespace MaChStorage
 
         private void FormItems_Load(object sender, EventArgs e)
         {
+            _Database = new Data.MaChStorageEntities();
+            InitData();
+        }
 
+        private void InitData()
+        {
+            itemsVWBindingSource.DataSource = _Database.ItemsVWs.ToList();
         }
 
         private void CloseToolStripMenuItem_Click(object sender, EventArgs e)
@@ -37,10 +43,14 @@ namespace MaChStorage
 
         private void AddNewItem()
         {
-            //using (var _dlg = new MessageBox())
-
-            _Changes = true;
-            DataRefresh();
+            using (var dlg = new Dialogs.DialogItem(_Database))
+            {
+                if (dlg.ShowDialog(this) == DialogResult.OK)
+                {
+                    _Changes = true;
+                    DataRefresh();
+                }
+            }
         }
 
         private void SaveChanges()
@@ -53,5 +63,15 @@ namespace MaChStorage
             MessageBox.Show("DataRefresh");
         }
 
+        private void DgvItems_CellValueChanged(object sender, DataGridViewCellEventArgs e) => _Changes = true;
+
+        private void DgvItems_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            using (var dlg = new Dialogs.DialogItem(_Database, itemsVWBindingSource.Current as Data.ItemsVW))
+            {
+                if (dlg.ShowDialog(this) == DialogResult.OK)
+                { DataRefresh(); }
+            }
+        }
     }
 }
